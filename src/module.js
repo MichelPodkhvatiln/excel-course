@@ -5,3 +5,7 @@ async function start() {
 }
 
 start();
+
+const dev = "hfhfhjhskjhfdds";
+
+console.log(dev)
