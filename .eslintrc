@@ -13,6 +13,6 @@
     "no-unused-vars": "warn",
     "require-jsdoc": "off",
     "semi": "warn",
-    "quotes": "warn",
+    "quotes": "warn"
   }
 }
