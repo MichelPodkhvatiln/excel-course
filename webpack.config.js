@@ -1,57 +1,80 @@
 const webpack = require('webpack');
-const path = require("path");
+const path = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 
-const filename = ext => isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`;
+const filename = (ext) => isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`;
 
-const plugins = [
-  new CleanWebpackPlugin(),
-  new HtmlWebpackPlugin({
-    template: path.resolve(__dirname, "src/index.html"),
-    minify: {
-      removeComments: isProd,
-      collapseWhitespace: isProd,
-    }
-  }),
-  new CopyPlugin({
-    patterns: [
-      {
-        from: path.resolve(__dirname, "src/favicon.ico"),
-        to: path.resolve(__dirname, "dist")
+const wpPlugins = () => {
+  const plugins = [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/index.html'),
+      minify: {
+        removeComments: isProd,
+        collapseWhitespace: isProd,
       },
-    ],
-  }),
-  new MiniCssExtractPlugin({
-    filename: filename("css"),
-  })
-];
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/favicon.ico'),
+          to: path.resolve(__dirname, 'dist'),
+        },
+      ],
+    }),
+    new MiniCssExtractPlugin({
+      filename: filename('css'),
+    }),
+  ];
 
-if (isDev) {
-  plugins.push(new webpack.HotModuleReplacementPlugin());
-}
+  if (isDev) {
+    plugins.push(new webpack.HotModuleReplacementPlugin());
+  }
+
+  return plugins;
+};
+
+
+const jsLoaders = () => {
+  const loaders = [
+    {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env'],
+      },
+    },
+  ];
+
+  if (isDev) {
+    loaders.push('eslint-loader');
+  }
+
+  return loaders;
+};
+
 
 module.exports = {
-  context: path.resolve(__dirname, "src"),
-  mode: "development",
-  entry: ["@babel/polyfill", "./index.js"],
+  context: path.resolve(__dirname, 'src'),
+  mode: 'development',
+  entry: ['@babel/polyfill', './index.js'],
   output: {
-    filename: filename("js"),
-    path: path.resolve(__dirname, "dist"),
+    filename: filename('js'),
+    path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
-    extensions: [".js"],
+    extensions: ['.js'],
     alias: {
-      "@": path.resolve(__dirname, "src"),
-      "@core": path.resolve(__dirname, "src/core"),
-    }
+      '@': path.resolve(__dirname, 'src'),
+      '@core': path.resolve(__dirname, 'src/core'),
+    },
   },
-  devtool: isDev ? "inline-source-map" : false,
+  devtool: isDev ? 'inline-source-map' : false,
   devServer: {
     historyApiFallback: true,
     contentBase: path.resolve(__dirname, './dist'),
@@ -60,28 +83,23 @@ module.exports = {
     hot: true,
     port: 8080,
   },
-  target: isDev ? "web" : "browserslist",
-  plugins,
+  target: isDev ? 'web' : 'browserslist',
+  plugins: wpPlugins(),
   module: {
     rules: [
       {
         test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader",
+          'css-loader',
+          'sass-loader',
         ],
       },
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      }
+        use: jsLoaders(),
+      },
     ],
-  }
-}
+  },
+};
