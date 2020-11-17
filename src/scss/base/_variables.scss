@@ -1,14 +1,19 @@
 //values
 $header-height: 46px;
 $toolbar-height: 52px;
+$formula-height: 46px;
 $transition-time: 0.3s;
+$info-cell-width: 40px;
 
 //main colors
+$grey: #9e9e9e;
+$grey-light: #cfcfcf;
+$grey-dark: #707070;
 $blue: #2962ff;
 $green: #00c853;
 $red: #e53935;
 
 
 //colors
-$focus-border-color: #1a73e8;
-$border-color: #c0c0c0;
+$focus-border-color: $blue;
+$border-color: $grey;
