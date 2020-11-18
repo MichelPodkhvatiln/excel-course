@@ -1,0 +1,40 @@
+.excel__header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 4px;
+  height: $header-height;
+  border-bottom: 2px solid $border-color;
+}
+
+.excel__header--input {
+  margin: 0;
+  padding: 2px 7px;
+  height: 32px;
+  min-width: 200px;
+  color: $black;
+  font-size: 1rem;
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  outline: none;
+  transition: border $transition-time;
+
+  &:hover {
+    border-color: $border-color;
+  }
+
+  &:focus {
+    border-color: $focus-border-color;
+  }
+}
+
+.excel__header-button {
+  &:active, &-active {
+    color: $red;
+  }
+}
