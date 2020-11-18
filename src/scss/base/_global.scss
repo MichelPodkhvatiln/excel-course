@@ -9,6 +9,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+a {
+  outline: none;
+  text-decoration: none;
+}
+
 .excel {
   position: relative;
   color: $grey-light;
