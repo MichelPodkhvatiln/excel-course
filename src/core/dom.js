@@ -23,6 +23,10 @@ class Dom {
     this.$el.addEventListener(eventName, callback);
   }
 
+  off(eventName, callback) {
+    this.$el.removeEventListener(eventName, callback);
+  }
+
   append(node) {
     if (node instanceof Dom) {
       node = node.$el;

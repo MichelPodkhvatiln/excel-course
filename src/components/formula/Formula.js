@@ -12,7 +12,7 @@ export class Formula extends ExcelComponent {
 
   toHTML() {
     return `
-      <div class="excel__formula-info">
+      <div class="excel__formula-info"> 
         fx
       </div>
       
