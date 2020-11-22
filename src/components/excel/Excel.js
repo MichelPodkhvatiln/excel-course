@@ -24,8 +24,9 @@ export class Excel {
   }
 
   render() {
+    // beforeMount
     this.$el.append(this.getRoot());
-
+    // mounted
     this.components.forEach((component) => component.init());
   }
 }
