@@ -8,6 +8,8 @@
   align-items: center;
   padding: 3px;
   border-bottom: 2px solid $border-color;
+  background-color: $white;
+  z-index: 100;
 
   .excel__button {
     margin-right: 3px;
